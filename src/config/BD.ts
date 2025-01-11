@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Sequelize } from "sequelize-typescript";
 import colors from "colors";
 import { POSTGRES_URL } from "./Process";
 /* existe diferentes maneras de instanciar sequelize,
