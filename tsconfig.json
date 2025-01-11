@@ -9,7 +9,10 @@
     "strict": false, // no se necesita que sea estricto
     "sourceMap": true,
     "esModuleInterop": true, // permite importar modulos de commonjs en ESmacript sin problemas
-    "declaration": true // crea un archivo de definicion de tipos
+    "declaration": true, // crea un archivo de definicion de tipos
+    // las siguientes extensiones son para que se puedan usar los decoradores
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src/**/*.ts"], // archivos que se van a compilar
   "exclude": ["node_modules"] // archivos que no se van a compilar

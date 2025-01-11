@@ -11,6 +11,7 @@ const sequelize = new Sequelize(POSTGRES_URL, {
       require: false,
     },
   },
+  models: [__dirname + "/../models/**/*.ts"],
 });
 
 export async function connectBD() {
