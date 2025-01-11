@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize";
+import colors from "colors";
 import { POSTGRES_URL } from "./Process";
 /* existe diferentes maneras de instanciar sequelize,
   https://sequelize.org/docs/v6/getting-started/#connecting-to-a-database
@@ -16,8 +17,12 @@ export async function connectBD() {
   try {
     await sequelize.authenticate();
     sequelize.sync();
-    console.log("Connection has been established successfully.");
+    console.log(
+      colors.cyan.bold("Connection has been established successfully.")
+    );
   } catch (error) {
-    console.log("Error connecting to the database: ", error);
+    console.log(
+      colors.bgRed.white.bold(`Error connecting to the database: ${error}`)
+    );
   }
 }
