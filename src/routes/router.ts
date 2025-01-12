@@ -14,6 +14,7 @@ router.get("/", getProducts);
 router.get("/", getProduct);
 
 router.post(
+  // se utiliza el body debido a que en este no se esta usando funcion async
   "/",
   body("name").isString().notEmpty().withMessage("Name Product is required"),
   body("price")

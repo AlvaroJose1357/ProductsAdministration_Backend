@@ -20,7 +20,7 @@ export const getProduct = async (req: Request, res: Response) => {
 };
 
 export const createProduct = async (req: Request, res: Response) => {
-  // validacion en el controlador
+  // validacion en el controlador, se utiliza el check debido a que es funcion async
   // await check("name").isString().notEmpty().withMessage("Name Product is required").run(req);
   // await check("price")
   //   .isNumeric()
