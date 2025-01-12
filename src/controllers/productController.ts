@@ -96,7 +96,7 @@ export const updateAvailability = async (req: Request, res: Response) => {
       return;
     }
     // actualizo el producto
-    product.availability = !product.availability;
+    product.availability = !product.dataValues.availability;
     await product.save();
     res.status(200).json({ data: product });
   } catch (error) {
