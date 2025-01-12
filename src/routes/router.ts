@@ -23,9 +23,7 @@ router.post(
     .withMessage("Valor Price Product not is valid")
     .notEmpty()
     .withMessage("Price Product is required")
-    .custom((value) => {
-      value > 0;
-    })
+    .custom((value) => value > 0)
     .withMessage("Price Product not is valid"),
   handleInputError,
   createProduct
