@@ -3,7 +3,15 @@ import Product from "../models/Product.model";
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
-    res.json("getProducts");
+    const products = await Product.findAll(
+      // si los deseo ordenar de alguna manera en particular
+      {
+        order: [["id", "DESC"]],
+      }
+      // limit: 10, // si deseo limitar la cantidad de productos
+      // si lo dejo vacio me traera todos los productos en orden
+    );
+    res.json({ data: products });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error", error });
