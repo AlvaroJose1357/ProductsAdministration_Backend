@@ -20,7 +20,9 @@ export const getProduct = async (req: Request, res: Response) => {
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
-    res.json("CreateProduct");
+    const product = new Product(req.body);
+    await product.save();
+    res.status(201).json(product);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error", error });
