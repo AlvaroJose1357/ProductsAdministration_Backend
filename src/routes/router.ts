@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import {
   createProduct,
   deleteProduct,
-  getProduct,
+  getProductByID,
   getProducts,
 } from "../controllers/productController";
 import { handleInputError } from "../middleware";
@@ -12,7 +12,12 @@ const router = Router();
 
 router.get("/", getProducts);
 
-router.get("/", getProduct);
+router.get(
+  "/:id",
+  param("id").isInt().withMessage("ID Product not is valid"),
+  handleInputError,
+  getProductByID
+);
 
 router.post(
   // se utiliza el body debido a que en este no se esta usando funcion async
