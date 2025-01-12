@@ -11,20 +11,20 @@ export default class Product extends Model {
     type: DataType.STRING(100), // para el tipo de dato
     allowNull: false, // para que no sea nulo
   })
-  name: string;
+  declare name: string;
 
   @Column({
     type: DataType.FLOAT(7, 2),
     allowNull: false,
   })
-  price: number;
+  declare price: number;
 
   @Default(true)
   @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
   })
-  availability: boolean;
+  declare availability: boolean;
 }
 
 // export class Product extends Model {

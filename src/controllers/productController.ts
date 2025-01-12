@@ -6,7 +6,7 @@ export const getProducts = async (req: Request, res: Response) => {
     const products = await Product.findAll(
       // si los deseo ordenar de alguna manera en particular
       {
-        order: [["id", "DESC"]],
+        order: [["price", "DESC"]],
       }
       // limit: 10, // si deseo limitar la cantidad de productos
       // si lo dejo vacio me traera todos los productos en orden
