@@ -5,6 +5,9 @@ const app = express();
 // conexion a la base de datos
 connectBD();
 
+//middleware para aceptar json
+app.use(express.json());
+
 app.use("/api/products", router);
 
 export default app;
