@@ -5,6 +5,7 @@ import {
   deleteProduct,
   getProductByID,
   getProducts,
+  updateProduct,
 } from "../controllers/productController";
 import { handleInputError } from "../middleware";
 
@@ -34,7 +35,23 @@ router.post(
   createProduct
 );
 
-router.put("/");
+router.put(
+  "/:id",
+  param("id").isInt().withMessage("ID Product not is valid"),
+  body("name").isString().notEmpty().withMessage("Name Product is required"),
+  body("price")
+    .isNumeric()
+    .withMessage("Valor Price Product not is valid")
+    .notEmpty()
+    .withMessage("Price Product is required")
+    .custom((value) => value > 0)
+    .withMessage("Price Product not is valid"),
+  body("availability")
+    .isBoolean()
+    .withMessage("Availability Product not is valid"),
+  handleInputError,
+  updateProduct
+);
 
 router.patch("/");
 
