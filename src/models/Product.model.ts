@@ -23,7 +23,7 @@ export default class Product extends Model {
     type: DataType.BOOLEAN,
     allowNull: false,
   })
-  availavility: boolean;
+  availability: boolean;
 }
 
 // export class Product extends Model {
