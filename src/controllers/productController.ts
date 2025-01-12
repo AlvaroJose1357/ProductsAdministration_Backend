@@ -71,8 +71,33 @@ export const updateProduct = async (req: Request, res: Response) => {
       return;
     }
     // actualizo el producto
+    // con este update lo que hace es actualizar el producto dependiendo el valor que le mandemos y tambien nos protege si no mandamos todos los campos, ya que si lo hicieramos de manera manual
+    /* 
+      product.name = req.body.name;
+      product.price = req.body.price;
+      //!product.availability = req.body.availability;
+    */
+    // si no mandamos la disponibilidad de manera manual, se eliminaria este atributo al momento de devolverlo en la respuesta
     (await product.update(req.body)).save();
     // await product.save();
+    res.status(200).json({ data: product });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error", error });
+  }
+};
+
+export const updateAvailability = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByPk(id);
+    if (!product) {
+      res.status(404).json({ error: "Product not found" });
+      return;
+    }
+    // actualizo el producto
+    product.availability = !product.availability;
+    await product.save();
     res.status(200).json({ data: product });
   } catch (error) {
     console.error(error);

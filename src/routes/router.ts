@@ -5,6 +5,7 @@ import {
   deleteProduct,
   getProductByID,
   getProducts,
+  updateAvailability,
   updateProduct,
 } from "../controllers/productController";
 import { handleInputError } from "../middleware";
@@ -53,7 +54,7 @@ router.put(
   updateProduct
 );
 
-router.patch("/");
+router.patch("/:id", updateAvailability);
 
 router.delete("/", deleteProduct);
 
