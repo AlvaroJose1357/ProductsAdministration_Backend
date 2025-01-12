@@ -1,15 +1,17 @@
 import { Request, Response } from "express";
 import Product from "../models/Product.model";
+import { getAttributes } from "sequelize-typescript";
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
     const products = await Product.findAll(
       // si los deseo ordenar de alguna manera en particular
       {
-        order: [["price", "DESC"]],
+        order: [["price", "DESC"]], // ordenar por precio de manera descendente
+        // attributes: { exclude: ["createdAt", "updatedAt"] }, // para excluir los campos de createdAt y updatedAt
+        // limit: 10, // si deseo limitar la cantidad de productos
+        // si lo dejo vacio me traera todos los productos en orden
       }
-      // limit: 10, // si deseo limitar la cantidad de productos
-      // si lo dejo vacio me traera todos los productos en orden
     );
     res.json({ data: products });
   } catch (error) {
