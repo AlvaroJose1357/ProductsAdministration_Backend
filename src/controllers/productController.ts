@@ -107,7 +107,15 @@ export const updateAvailability = async (req: Request, res: Response) => {
 
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
-    res.json("deleteProduct");
+    const { id } = req.params;
+    const product = await Product.findByPk(id);
+    if (!product) {
+      res.status(404).json({ error: "Product not found" });
+      return;
+    }
+    // elimino el producto
+    await product.destroy();
+    res.status(200).json({ data: "Product deleted" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error", error });
