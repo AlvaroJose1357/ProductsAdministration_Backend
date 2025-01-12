@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import Product from "../models/Product.model";
-import { validationResult } from "express-validator";
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
@@ -32,14 +31,15 @@ export const createProduct = async (req: Request, res: Response) => {
   //   })
   //   .withMessage("Price Product not is valid")
   //   .run(req);
-  let errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    res.status(400).json({ errors: errors.array() });
-    return;
-  }
+  // pasando la validacion al middleware
+  // let errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   res.status(400).json({ errors: errors.array() });
+  //   return;
+  // }
   try {
     const product = await Product.create(req.body);
-    res.status(201).json(product);
+    res.status(201).json({ data: product });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error", error });

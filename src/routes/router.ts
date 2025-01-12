@@ -6,6 +6,7 @@ import {
   getProduct,
   getProducts,
 } from "../controllers/productController";
+import { handleInputError } from "../middleware";
 
 const router = Router();
 
@@ -26,6 +27,7 @@ router.post(
       value > 0;
     })
     .withMessage("Price Product not is valid"),
+  handleInputError,
   createProduct
 );
 
