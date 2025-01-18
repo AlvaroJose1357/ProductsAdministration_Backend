@@ -5,7 +5,7 @@ import { POSTGRES_URL } from "./Process";
   https://sequelize.org/docs/v6/getting-started/#connecting-to-a-database
   en este caso se hace pasandole una uri de la siguiente manera*/
 
-const sequelize = new Sequelize(POSTGRES_URL, {
+export const sequelize = new Sequelize(POSTGRES_URL, {
   dialectOptions: {
     ssl: {
       require: false,
