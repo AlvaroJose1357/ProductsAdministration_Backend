@@ -10,4 +10,8 @@ app.use(express.json());
 
 app.use("/api/products", router);
 
+app.get("/api", (req, res) => {
+  res.json({ message: "API con express y typescript" });
+});
+
 export default app;

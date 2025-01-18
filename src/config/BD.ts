@@ -12,15 +12,16 @@ const sequelize = new Sequelize(POSTGRES_URL, {
     },
   },
   models: [__dirname + "/../models/**/*.ts"],
+  logging: false, // para que no muestre los logs de las consultas
 });
 
 export async function connectBD() {
   try {
     await sequelize.authenticate();
     sequelize.sync();
-    console.log(
-      colors.cyan.bold("Connection has been established successfully.")
-    );
+    // console.log(
+    //   colors.cyan.bold("Connection has been established successfully.")
+    // );
   } catch (error) {
     console.log(
       colors.bgRed.white.bold(`Error connecting to the database: ${error}`)
