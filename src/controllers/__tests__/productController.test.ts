@@ -55,6 +55,28 @@ describe("POST /api/products", () => {
   });
 });
 
+describe("GET /api/products", () => {
+  it("should check if api/products url exists", async () => {
+    const response = await request(app).get("/api/products");
+    // los que deben de cumplir
+    expect(response.status).toBe(200);
+    // los que no deben de cumplir
+    expect(response.status).not.toBe(404);
+  });
+  it("GET a JSON response with products", async () => {
+    const response = await request(app).get("/api/products");
+    // los que deben de cumplir
+    expect(response.status).toBe(200);
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body).toHaveProperty("data");
+    // los que no deben de cumplir
+    expect(response.status).not.toBe(500);
+    expect(response.status).not.toBe(400);
+    expect(response.status).not.toBe(201);
+    expect(response.body).not.toHaveProperty("errors");
+  });
+});
+
 // describe("Product Controller", () => {
 //   it("should return a list of products", async () => {
 //     const response = await request(app).get("/products");
