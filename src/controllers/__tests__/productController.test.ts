@@ -198,44 +198,33 @@ describe("PUT /api/products/:id", () => {
   });
 });
 
-// describe("PATCH /api/products/:id", () => {
-//   it("should check a valid id in the URL", async () => {
-//     const productID = "not-valid-url"; // no es un id valido
-//     const response = await request(app).patch(`/api/products/${productID}`);
-//     // los que deben de cumplir
-//     expect(response.status).toBe(400);
-//     expect(response.body).toHaveProperty("errors");
-//     expect(response.body.errors).toHaveLength(1);
-//     expect(response.body.errors[0].msg).toBe("ID Product not is valid");
-//     // los que no deben de cumplir
-//     expect(response.status).not.toBe(500);
-//     expect(response.status).not.toBe(404);
-//     expect(response.body).not.toHaveProperty("error");
-//   });
-//   it("should return a 404 response for a non-existent product", async () => {
-//     const productID = 4565654;
-//     const response = await request(app).patch(`/api/products/${productID}`);
-//     // los que deben de cumplir
-//     expect(response.status).toBe(404);
-//     expect(response.body).toHaveProperty("error");
-//     expect(response.body.error).toBe("Product not found");
+describe("PATCH /api/products/:id", () => {
+  it("should return a 404 response for a non-existent product", async () => {
+    const productID = 4565654;
+    const response = await request(app).patch(`/api/products/${productID}`);
+    // los que deben de cumplir
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty("error");
+    expect(response.body.error).toBe("Product not found");
 
-//     // los que no deben de cumplir
-//     expect(response.status).not.toBe(200);
-//     expect(response.body).not.toHaveProperty("data");
-//   });
-//   it("should update the availability of an existing product", async () => {
-//     const productID = 1;
-//     const response = await request(app).patch(`/api/products/${productID}`);
-//     // los que deben de cumplir
-//     expect(response.status).toBe(200);
-//     expect(response.body).toHaveProperty("data");
+    // los que no deben de cumplir
+    expect(response.status).not.toBe(200);
+    expect(response.body).not.toHaveProperty("data");
+  });
+  it("should update the product availability", async () => {
+    const productID = 1;
+    const response = await request(app).patch(`/api/products/${productID}`);
+    // los que deben de cumplir
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("data");
+    expect(response.body.data.availability).toBe(false);
 
-//     // los que no deben de cumplir
-//     expect(response.status).not.toBe(404);
-//     expect(response.body).not.toHaveProperty("errors");
-//   });
-// });
+    // los que no deben de cumplir
+    expect(response.status).not.toBe(404);
+    expect(response.status).not.toBe(400);
+    expect(response.body).not.toHaveProperty("errors");
+  });
+});
 
 describe("DELETE /api/products/:id", () => {
   it("should check a valid id in the URL", async () => {
