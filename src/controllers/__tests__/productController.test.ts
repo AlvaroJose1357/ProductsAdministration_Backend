@@ -116,13 +116,84 @@ describe("GET /api/products/:id", () => {
   });
 });
 
-// describe("Product Controller", () => {
-//   it("should return a list of products", async () => {
-//     const response = await request(app).get("/products");
-//     expect(response.status).toBe(200);
-//     expect(response.body).toEqual([
-//       { id: 1, name: "Product 1" },
-//       { id: 2, name: "Product 2" },
-//     ]);
-//   });
-// });
+describe("PUT /api/products/:id", () => {
+  it("should check a valid id in the URL", async () => {
+    const productID = "not-valid-url"; // no es un id valido
+    const response = await request(app).put(`/api/products/${productID}`).send({
+      name: "Monitor Curvo 2 - testing",
+      availability: true,
+      price: 500,
+    }); // los que deben de cumplir
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("errors");
+    expect(response.body.errors).toHaveLength(1);
+    expect(response.body.errors[0].msg).toBe("ID Product not is valid");
+    // los que no deben de cumplir
+    expect(response.status).not.toBe(500);
+    expect(response.status).not.toBe(404);
+    expect(response.body).not.toHaveProperty("error");
+  });
+  it("should display validations errors message when updating a product", async () => {
+    const productID = 1;
+    const response = await request(app)
+      .put(`/api/products/${productID}`)
+      .send({});
+    // los que deben de cumplir
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("errors");
+    expect(response.body.errors).toBeTruthy(); // verifica si en un contexto booleano es verdadero, no importa lo que contenga
+    expect(response.body.errors).toHaveLength(6);
+    // los que no deben de cumplir
+    expect(response.status).not.toBe(200);
+    expect(response.status).not.toBe(404);
+    expect(response.body).not.toHaveProperty("data");
+  });
+  it("should validate that the price is greater than 0", async () => {
+    const productID = 1;
+    const response = await request(app).put(`/api/products/${productID}`).send({
+      name: "Monitor Curvo - testing",
+      availability: true,
+      price: -500,
+    });
+    // los que deben de cumplir
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("errors");
+    expect(response.body.errors).toBeTruthy(); // verifica si en un contexto booleano es verdadero, no importa lo que contenga
+    expect(response.body.errors).toHaveLength(1);
+    // los que no deben de cumplir
+    expect(response.status).not.toBe(200);
+    expect(response.status).not.toBe(404);
+    expect(response.body).not.toHaveProperty("data");
+  });
+  it("should return a 404 response for a non-existent product", async () => {
+    const productID = 4565654;
+    const response = await request(app).put(`/api/products/${productID}`).send({
+      name: "Monitor Curvo - testing",
+      availability: true,
+      price: 500,
+    });
+    // los que deben de cumplir
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty("error");
+    expect(response.body.error).toBe("Product not found");
+
+    // los que no deben de cumplir
+    expect(response.status).not.toBe(200);
+    expect(response.body).not.toHaveProperty("data");
+  });
+  it("should update an existing product with valid data", async () => {
+    const productID = 1;
+    const response = await request(app).put(`/api/products/${productID}`).send({
+      name: "Monitor Curvo - testing",
+      availability: true,
+      price: 500,
+    });
+    // los que deben de cumplir
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("data");
+
+    // los que no deben de cumplir
+    expect(response.status).not.toBe(404);
+    expect(response.body).not.toHaveProperty("errors");
+  });
+});
