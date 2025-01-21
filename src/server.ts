@@ -1,4 +1,6 @@
 import express from "express";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./config/swagger";
 import router from "./routes/router";
 import { connectBD } from "./config/BD";
 const app = express();
@@ -13,5 +15,7 @@ app.use("/api/products", router);
 app.get("/api", (req, res) => {
   res.json({ message: "API con express y typescript" });
 });
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 export default app;
