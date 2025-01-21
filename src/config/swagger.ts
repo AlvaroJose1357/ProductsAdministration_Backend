@@ -1,4 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import { SwaggerUiOptions } from "swagger-ui-express";
 
 // const swaggerOptions = {
 //   swaggerDefinition: {
@@ -41,5 +42,16 @@ const options: swaggerJSDoc.Options = {
 };
 
 const swaggerSpec = swaggerJSDoc(options);
+
+export const swaggerUIOptions: SwaggerUiOptions = {
+  customCss: `
+    .topbar-wrapper .link {
+      content: url('https://cdn-icons-png.flaticon.com/512/2982/2982808.png');
+      height: 80px;
+      width: 80px;
+    }
+  `,
+  customSiteTitle: "Documentacion REST API Express y Typescript",
+};
 
 export default swaggerSpec;
