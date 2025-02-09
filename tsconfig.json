@@ -15,5 +15,5 @@
     "emitDecoratorMetadata": true
   },
   "include": ["src/**/*.ts"], // archivos que se van a compilar
-  "exclude": ["node_modules"] // archivos que no se van a compilar
+  "exclude": ["node_modules", "src/**/*.test.ts"] // archivos que no se van a compilar
 }

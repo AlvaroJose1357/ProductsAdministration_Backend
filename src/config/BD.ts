@@ -11,7 +11,7 @@ export const sequelize = new Sequelize(POSTGRES_URL, {
       require: false,
     },
   },
-  models: [__dirname + "/../models/**/*.ts"],
+  models: [__dirname + "/../models/**/*"],
   logging: false, // para que no muestre los logs de las consultas
 });
 
