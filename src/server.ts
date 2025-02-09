@@ -1,5 +1,6 @@
 import express from "express";
 import cors, { CorsOptions } from "cors";
+import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec, { swaggerUIOptions } from "./config/swagger";
 import router from "./routes/router";
@@ -29,6 +30,8 @@ app.use(cors(corsOptions));
 
 //middleware para aceptar json
 app.use(express.json());
+
+app.use(morgan("dev"));
 
 app.use("/api/products", router);
 
